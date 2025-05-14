@@ -1,5 +1,11 @@
+from stats import *
+import sys
+
 def main():
-    book_path = "books/frankenstein.txt"
+    if len(sys.argv)<2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1) 
+    book_path = sys.argv[1]
     text = get_book_text(book_path)
     count = word_count(text)
     characters = char_count(text)
@@ -13,19 +19,13 @@ def main():
     for sub in fresh_list:
         for y in sub:
             if sub["key"].isalpha() and ("key" in y):
-                print(f"The '{sub["key"]}' character was found {sub["num"]} times")
+#                print(f"The '{sub["key"]}' character was found {sub["num"]} times")
+                print(f"{sub["key"]}: {sub["num"]}")
     print("--- End report ---")
-
 
 def get_book_text(path):
     with open(path) as f:
         return f.read()
-
-
-def word_count(book):
-    words = book.split()
-    return len(words)
-
 
 def char_count(full_text_in):
     char_list = {}
